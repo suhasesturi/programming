@@ -1,22 +1,21 @@
 package spoj;
 
-import java.io.BufferedReader;
+import util.CustomReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class JNEXT {
 	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		int t = Integer.parseInt(in.readLine());
+		CustomReader in = new CustomReader(System.in);
+		int t = in.nextInt();
 
 		StringBuilder builder = new StringBuilder();
 		while (t-- > 0) {
-			int n = Integer.parseInt(in.readLine());
-			String[] s = in.readLine().split(" ");
-			byte[] numbers = new byte[n];
-			for (int i = 0; i < s.length; i++) {
-				numbers[i] = Byte.parseByte(s[i]);
+			int n = in.nextInt();
+			int[] numbers = new int[n];
+			for (int i = 0; i < n; i++) {
+				numbers[i] = in.nextInt();
 			}
 
 			int index = -1;
@@ -50,8 +49,8 @@ public class JNEXT {
 		System.out.println(builder);
 	}
 
-	private static void swap(byte[] numbers, int i, int j) {
-		byte temp = numbers[i];
+	private static void swap(int[] numbers, int i, int j) {
+		int temp = numbers[i];
 		numbers[i] = numbers[j];
 		numbers[j] = temp;
 	}
