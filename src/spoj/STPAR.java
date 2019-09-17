@@ -15,17 +15,11 @@ public class STPAR {
 			Stack<Integer> stack = new Stack<>();
 			for (int i = 0; i < n; i++) {
 				int temp = in.nextInt();
-				if (temp == current) {
+				while (!stack.isEmpty() && stack.peek() == current) {
+					stack.pop();
 					current++;
-				} else if (!stack.isEmpty()) {
-					while (!stack.isEmpty() && stack.peek() == current) {
-						stack.pop();
-						current++;
-					}
-					stack.push(temp);
-				} else {
-					stack.push(temp);
 				}
+				stack.push(temp);
 			}
 			while (!stack.isEmpty() && stack.peek() == current) {
 				stack.pop();
