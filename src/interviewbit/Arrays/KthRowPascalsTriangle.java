@@ -1,18 +1,17 @@
-package interviewbit;
+package interviewbit.Arrays;
 
 import java.util.ArrayList;
 
 public class KthRowPascalsTriangle {
-    public ArrayList<Integer> getRow(int row) {
+    public ArrayList<Integer> getRow(int k) {
         ArrayList<Integer> first = new ArrayList<>();
-        first.add(1);
         ArrayList<Integer> second = new ArrayList<>();
-        for (int i = 1; i <= row; i++) {
-            for (int j = 0; j <= i; j++) {
-                if (j == 0 || j == i) {
+        for (int row = 0; row <= k; row++) {
+            for (int column = 0; column <= row; column++) {
+                if (column == 0 || column == row) {
                     second.add(1);
                 } else {
-                    second.add(first.get(j) + first.get(j - 1));
+                    second.add(first.get(column - 1) + first.get(column));
                 }
             }
             first = second;
