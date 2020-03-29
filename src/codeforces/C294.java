@@ -11,7 +11,6 @@ public class C294 {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String[] s = in.readLine().split(" ");
 		int n = Integer.parseInt(s[0]);
-		int m = Integer.parseInt(s[1]);
 
 		s = in.readLine().split(" ");
 		ArrayList<Integer> B = new ArrayList<>();

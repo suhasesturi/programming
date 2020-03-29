@@ -10,7 +10,6 @@ public class LECANDY {
 		int t = Integer.parseInt(in.readLine());
 		while (t-- > 0) {
 			String[] s = in.readLine().split(" ");
-			int n = Integer.parseInt(s[0]);
 			int c = Integer.parseInt(s[1]);
 			s = in.readLine().split(" ");
 			int count = 0;

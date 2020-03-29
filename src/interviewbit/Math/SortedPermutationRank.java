@@ -15,7 +15,6 @@ public class SortedPermutationRank {
 			factorial[i] = (int) (((long) factorial[i - 1] * i) % MOD);
 		}
 		for (int i = 0; i < str.length(); i++) {
-			char ch = str.charAt(i);
 			int lower = lowerCount(str, i);
 			result = (result + ((long) lower * factorial[str.length() - i - 1]) % MOD) % MOD;
 		}

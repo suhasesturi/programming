@@ -6,7 +6,6 @@ import java.util.Collections;
 
 public class MaximumUnsortedSubarray {
 	public ArrayList<Integer> subUnsort(ArrayList<Integer> list) {
-		ArrayList<Integer> result = new ArrayList<>();
 		int start = -1, end = list.size();
 		for (int i = 0; i < list.size() - 1; i++) {
 			if (list.get(i) > list.get(i + 1)) {

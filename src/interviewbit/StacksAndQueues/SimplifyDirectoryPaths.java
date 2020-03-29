@@ -1,7 +1,6 @@
 package interviewbit.StacksAndQueues;
 
 import java.util.LinkedList;
-import java.util.Stack;
 
 public class SimplifyDirectoryPaths {
     public String simplifyPath(String A) {

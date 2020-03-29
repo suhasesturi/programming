@@ -1,7 +1,6 @@
 package interviewbit.Backtracking;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class NQueens {
     public ArrayList<ArrayList<String>> solveNQueens(int a) {

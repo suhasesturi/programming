@@ -12,7 +12,6 @@ public class MAGICHF {
 
         while (t-- > 0) {
             String[] temp = in.readLine().split(" ");
-            int n = Integer.parseInt(temp[0]);
             int x = Integer.parseInt(temp[1]);
             int s = Integer.parseInt(temp[2]);
 

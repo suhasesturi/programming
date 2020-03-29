@@ -3,8 +3,6 @@ package codechef;
 import util.CustomReader;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CHFM {
     public void solve(int testNumber, CustomReader in, PrintWriter out) {
