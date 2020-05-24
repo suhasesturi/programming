@@ -1,32 +1,24 @@
-package interviewbit;
+package interviewbit.Strings;
 
 public class MinimumCharactersStringPalindrome {
     public int solve(String A) {
-        String concatenatedString = A + "$" + reverse(A);
+        String concatenatedString = A + "$" + new StringBuilder(A).reverse().toString();
         int[] prefix = prefixFunction(concatenatedString);
         return A.length() - prefix[prefix.length - 1];
     }
 
-    private String reverse(String str) {
-        StringBuilder builder = new StringBuilder(str);
-        return builder.reverse().toString();
-    }
-
-    private int[] prefixFunction(String str) {
-        int n = str.length();
+    private int[] prefixFunction(String pattern) {
+        int[] prefix = new int[pattern.length()];
         int k = 0;
-        int[] prefix = new int[n];
-
-        for (int q = 1; q < n; q++) {
-            while (k > 0 && str.charAt(q) != str.charAt(k)) {
+        for (int i = 1; i < pattern.length(); i++) {
+            while (k > 0 && pattern.charAt(k) != pattern.charAt(i)) {
                 k = prefix[k - 1];
             }
-            if (str.charAt(q) == str.charAt(k)) {
+            if (pattern.charAt(k) == pattern.charAt(i)) {
                 k++;
             }
-            prefix[q] = k;
+            prefix[i] = k;
         }
-
         return prefix;
     }
 
