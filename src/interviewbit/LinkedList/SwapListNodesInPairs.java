@@ -1,9 +1,9 @@
 package interviewbit.LinkedList;
 
-public class KReverseLinkedList {
-	public ListNode reverseList(ListNode A, int B) {
+public class SwapListNodesInPairs {
+	public ListNode swapPairs(ListNode A) {
 		ListNode next, previous = null, current = A;
-		int n = B;
+		int n = 2;
 		while (n-- > 0 && current != null) {
 			next = current.next;
 			current.next = previous;
@@ -11,7 +11,7 @@ public class KReverseLinkedList {
 			current = next;
 		}
 		if (current != null) {
-			A.next = reverseList(current, B);
+			A.next = swapPairs(current);
 		}
 
 		return previous;
