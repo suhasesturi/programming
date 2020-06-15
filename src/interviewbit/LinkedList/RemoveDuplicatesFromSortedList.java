@@ -1,19 +1,18 @@
 package interviewbit.LinkedList;
 
 public class RemoveDuplicatesFromSortedList {
-    public ListNode deleteDuplicates(ListNode A) {
-        if (A == null) return A;
-        ListNode head = A;
-        ListNode pointer = A;
-        while (A.next != null) {
-            if (A.next.val != pointer.val) {
-                pointer.next = A.next;
-                pointer = pointer.next;
-            }
-            A = A.next;
-        }
-        pointer.next = null;
+	public ListNode deleteDuplicates(ListNode A) {
+		if (A == null) return A;
+		ListNode previous = A, current = A.next;
 
-        return head;
-    }
+		while (current != null) {
+			if (current.val != previous.val) {
+				previous.next = current;
+				previous = current;
+			}
+			current = current.next;
+		}
+		previous.next = null;
+		return A;
+	}
 }
