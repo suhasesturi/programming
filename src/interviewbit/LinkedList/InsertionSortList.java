@@ -1,30 +1,34 @@
 package interviewbit.LinkedList;
 
 public class InsertionSortList {
-    private ListNode sorted;
+	public ListNode insertionSortList(ListNode A) {
+		ListNode current = A, next, head = A;
+		while (current != null) {
+			next = current.next;
+			head = insert(head, current);
+			current = next;
+		}
+		return head;
+	}
 
-    public ListNode insertionSortList(ListNode A) {
-        ListNode current = A;
-        sorted = null;
-        while (current != null) {
-            ListNode next = current.next;
-            insertNode(current);
-            current = next;
-        }
-        return sorted;
-    }
+	public ListNode insert(ListNode root, ListNode node) {
+		ListNode head = new ListNode(0);
+		ListNode head2 = new ListNode(0);
 
-    private void insertNode(ListNode newNode) {
-        if (sorted == null || sorted.val >= newNode.val) {
-            newNode.next = sorted;
-            sorted = newNode;
-        } else {
-            ListNode current = sorted;
-            while (current.next != null && current.next.val < newNode.val) {
-                current = current.next;
-            }
-            newNode.next = current.next;
-            current.next = newNode;
-        }
-    }
+		ListNode current = root, smaller = head, greater = head2;
+		while (current != node) {
+			if (current.val < node.val) {
+				smaller.next = current;
+				smaller = current;
+			} else if (current.val > node.val){
+				greater.next = current;
+				greater = current;
+			}
+			current = current.next;
+		}
+		greater.next = node.next;
+		smaller.next = node;
+		node.next = head2.next;
+		return head.next;
+	}
 }
