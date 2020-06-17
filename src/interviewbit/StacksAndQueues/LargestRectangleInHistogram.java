@@ -4,29 +4,28 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class LargestRectangleInHistogram {
-    public int largestRectangleArea(ArrayList<Integer> A) {
-        Stack<Integer> lengths = new Stack<>();
-        int i = 0;
-        int result = 0;
-        while (i < A.size()) {
-            if (lengths.isEmpty() || A.get(lengths.peek()) <= A.get(i)) {
-                lengths.push(i++);
-            } else {
-                int area = getArea(A, lengths, i);
-                result = Math.max(area, result);
-            }
-        }
+	public int largestRectangleArea(ArrayList<Integer> A) {
+		Stack<Integer> stack = new Stack<>();
+		int i = 0;
+		int result = 0;
+		while (i < A.size()) {
+			if (stack.isEmpty() || A.get(stack.peek()) <= A.get(i)) {
+				stack.push(i);
+			} else {
+				int area = getArea(A, stack, i);
+				result = Math.max(result, area);
+			}
+		}
 
-        while (!lengths.isEmpty()) {
-            int area = getArea(A, lengths, i);
-            result = Math.max(area, result);
-        }
+		while (!stack.isEmpty()) {
+			int area = getArea(A, stack, i);
+			result = Math.max(result, area);
+		}
+		return result;
+	}
 
-        return result;
-    }
-
-    private int getArea(ArrayList<Integer> A, Stack<Integer> lengths, int i) {
-        int top = lengths.pop();
-        return A.get(top) * (lengths.isEmpty() ? i : i - lengths.peek() - 1);
-    }
+	private int getArea(ArrayList<Integer> a, Stack<Integer> stack, int i) {
+		int top = stack.pop();
+		return a.get(top) * (stack.isEmpty() ? i : i - stack.peek() - 1);
+	}
 }
