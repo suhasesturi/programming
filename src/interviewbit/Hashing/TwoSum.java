@@ -1,37 +1,22 @@
 package interviewbit.Hashing;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class TwoSum {
     public ArrayList<Integer> twoSum(final List<Integer> A, int B) {
+        HashMap<Integer, Integer> map = new HashMap<>();
         ArrayList<Integer> result = new ArrayList<>();
-        Map<Integer, Integer> map = new HashMap<>();
-
         for (int i = 0; i < A.size(); i++) {
-            int required = B - A.get(i);
-            if (map.containsKey(required)) {
-                int max = Math.max(map.get(required), i);
-                int min = Math.min(map.get(required), i);
-
-                if (result.isEmpty()) {
-                    result.add(min);
-                    result.add(max);
-                } else {
-                    if (max < result.get(1) || (max == result.get(1) && min < result.get(0))) {
-                        result.set(0, min);
-                        result.set(1, max);
-                    }
-                }
-            } else {
-                if (!map.containsKey(A.get(i))) {
-                    map.put(A.get(i), i);
-                }
+            if (map.containsKey(B - A.get(i))) {
+                result.add(map.get(B - A.get(i)) + 1);
+                result.add(i + 1);
+                return result;
             }
-        }
-
-        if (!result.isEmpty()) {
-            result.set(0, result.get(0) + 1);
-            result.set(1, result.get(1) + 1);
+            if (!map.containsKey(A.get(i))) {
+                map.put(A.get(i), i);
+            }
         }
         return result;
     }
