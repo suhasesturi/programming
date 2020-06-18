@@ -1,35 +1,45 @@
 package interviewbit.Hashing;
 
 public class WindowString {
-    public String minWindow(String text, String pattern) {
-        int[] hashPattern = new int[256];
-        int[] hashText = new int[256];
+	public static void main(String[] args) {
+		System.out.println(new WindowString().minWindow("ADOBECODEBANC", "ABC"));
+	}
 
-        int start = 0, startIndex = -1, minLength = Integer.MAX_VALUE;
-        int count = 0;
-        for (int i = 0; i < pattern.length(); i++) hashPattern[pattern.charAt(i)]++;
-        for (int i = 0; i < text.length(); i++) {
-            char ch = text.charAt(i);
-            hashText[ch]++;
+	public String minWindow(String text, String pattern) {
+		int[] hPattern = new int[256];
+		int[] hText = new int[256];
 
-            if (hashPattern[ch] != 0 && hashText[ch] <= hashPattern[ch]) count++;
+		for (int i = 0; i < pattern.length(); i++) {
+			hPattern[pattern.charAt(i)]++;
+		}
 
-            if (count == pattern.length()) {
-                while (hashPattern[text.charAt(start)] == 0 ||
-                        hashPattern[text.charAt(start)] < hashText[text.charAt(start)]) {
-                    if (hashPattern[text.charAt(start)] < hashText[text.charAt(start)])
-                        hashText[text.charAt(start)]--;
-                    start++;
-                }
+		int length = Integer.MAX_VALUE, start = 0, count = 0, startIndex = -1;
+		for (int i = 0; i < text.length(); i++) {
+			char ch = text.charAt(i);
+			hText[ch]++;
 
-                int tempLength = i - start + 1;
-                if (tempLength < minLength) {
-                    minLength = tempLength;
-                    startIndex = start;
-                }
-            }
-        }
+			if (hPattern[ch] != 0 && hText[ch] <= hPattern[ch]) count++;
 
-        return startIndex == -1 ? "" : text.substring(startIndex, startIndex + minLength);
-    }
+			if (count == pattern.length()) {
+				while (hPattern[text.charAt(start)] == 0 ||
+						hPattern[text.charAt(start)] < hText[text.charAt(start)]) {
+					if (hPattern[text.charAt(start)] < hText[text.charAt(start)]) {
+						hText[text.charAt(start)]--;
+					}
+					start++;
+				}
+
+				int tempLength = i - start + 1;
+				if (tempLength < length) {
+					length = tempLength;
+					startIndex = start;
+				}
+				count--;
+				hText[text.charAt(start)]--;
+				start++;
+			}
+		}
+
+		return startIndex == -1 ? "" : text.substring(startIndex, startIndex + length);
+	}
 }
