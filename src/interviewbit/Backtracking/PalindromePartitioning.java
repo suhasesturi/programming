@@ -1,36 +1,33 @@
 package interviewbit.Backtracking;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class PalindromePartitioning {
-    public ArrayList<ArrayList<String>> partition(String a) {
-        ArrayList<ArrayList<String>> result = new ArrayList<>();
-        helper(result, new LinkedList<>(), 0, a);
-        return result;
-    }
+	public ArrayList<ArrayList<String>> partition(String a) {
+		ArrayList<ArrayList<String>> result = new ArrayList<>();
+		generate(a, result, new ArrayList<>(), 0);
+		return result;
+	}
 
-    private void helper(ArrayList<ArrayList<String>> result, LinkedList<String> currentPartition,
-                        int index, String input) {
+	private void generate(String a, ArrayList<ArrayList<String>> result, ArrayList<String> row, int index) {
+		if (index == a.length()) {
+			result.add(new ArrayList<>(row));
+			return;
+		}
 
-        if (index == input.length()) {
-            result.add(new ArrayList<>(currentPartition));
-            return;
-        }
+		for (int i = index; i < a.length(); i++) {
+			if (isPalindrome(a, index, i)) {
+				row.add(a.substring(index, i + 1));
+				generate(a, result, row, i + 1);
+				row.remove(row.size() - 1);
+			}
+		}
+	}
 
-        for (int i = index; i < input.length(); i++) {
-            if (isPalindrome(input, index, i)) {
-                currentPartition.addLast(input.substring(index, i + 1));
-                helper(result, currentPartition, i + 1, input);
-                currentPartition.removeLast();
-            }
-        }
-    }
-
-    private boolean isPalindrome(String input, int start, int end) {
-        for (int i = start, j = end; i <= j; i++, j--) {
-            if (input.charAt(i) != input.charAt(j)) return false;
-        }
-        return true;
-    }
+	private boolean isPalindrome(String a, int i, int j) {
+		for (; i < j; i++, j--) {
+			if (a.charAt(i) != a.charAt(j)) return false;
+		}
+		return true;
+	}
 }
