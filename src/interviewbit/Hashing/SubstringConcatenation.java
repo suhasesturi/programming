@@ -22,6 +22,7 @@ public class SubstringConcatenation {
 		for (int i = 0; i + n <= A.length(); i++) {
 			String word = A.substring(i, i + m);
 			if (map.containsKey(word)) {
+				@SuppressWarnings("unchecked")
 				HashMap<String, Integer> tempMap = (HashMap<String, Integer>) map.clone();
 				for (int j = i; j + m <= A.length(); j += m) {
 					word = A.substring(j, j + m);
