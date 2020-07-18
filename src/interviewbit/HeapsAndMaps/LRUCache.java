@@ -1,57 +1,67 @@
 package interviewbit.HeapsAndMaps;
 
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.PriorityQueue;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class LRUCache {
 	private final int capacity;
-	private final HashMap<Integer, Pair> map;
-	private final PriorityQueue<Pair> timings;
+	private final HashMap<Integer, Item> keyMap;
+	private final TreeMap<Integer, Item> timeMap;
 	private int time;
 
 	public LRUCache(int capacity) {
 		this.capacity = capacity;
 		this.time = 0;
-		map = new HashMap<>();
-		timings = new PriorityQueue<>(Comparator.comparingInt(a -> a.time));
+		keyMap = new HashMap<>();
+		timeMap = new TreeMap<>();
 	}
 
 	public int get(int key) {
-		if (map.containsKey(key)) {
-			this.time++;
-			map.get(key).time = this.time;
-			timings.add(new Pair(this.time, key));
-			return map.get(key).value;
-		}
-		return -1;
+		if (!keyMap.containsKey(key)) return -1;
+
+		this.time++;
+		Item item = keyMap.get(key);
+		updateTime(item.time, time);
+		item.time = time;
+		return item.value;
+	}
+
+	private void updateTime(int oldTime, int time) {
+		Item item = timeMap.get(oldTime);
+		timeMap.remove(oldTime);
+		item.time = time;
+		timeMap.put(time, item);
 	}
 
 	public void set(int key, int value) {
 		this.time++;
-		map.put(key, new Pair(this.time, value));
-		timings.add(new Pair(this.time, key));
-
-		if (map.size() > capacity) {
-			remove();
-		}
-	}
-
-	private void remove() {
-		Pair top = timings.poll();
-		if (map.get(top.value).time > top.time) {
-			remove();
+		if (keyMap.containsKey(key)) {
+			Item item = keyMap.get(key);
+			updateTime(item.time, time);
+			item.value = value;
+			item.time = time;
 		} else {
-			map.remove(top.value);
+			if (keyMap.size() == capacity) {
+				Map.Entry<Integer, Item> firstEntry = timeMap.firstEntry();
+				timeMap.remove(firstEntry.getKey());
+				keyMap.remove(firstEntry.getValue().key);
+			}
+
+			Item item = new Item(time, key, value);
+			keyMap.put(key, item);
+			timeMap.put(time, item);
 		}
 	}
 
-	private static class Pair {
+	private static class Item {
 		int time;
+		int key;
 		int value;
 
-		Pair(int time, int value) {
+		Item(int time, int key, int value) {
 			this.time = time;
+			this.key = key;
 			this.value = value;
 		}
 	}
