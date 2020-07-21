@@ -1,7 +1,5 @@
 package interviewbit.Strings;
 
-import java.util.Arrays;
-
 public class ZigZagString {
 	public static void main(String[] args) {
 		System.out.println(new ZigZagString().convert("abcdef", 3));
