@@ -9,6 +9,6 @@ public class SumRootToLeafNumbers {
 		if (root == null) return 0;
 		sum = (sum * 10 + root.val) % 1003;
 		if (root.left == null && root.right == null) return sum;
-		return (sumTotal(root.left, sum) + sumTotal(root.right, sum));
+		return (sumTotal(root.left, sum) + sumTotal(root.right, sum)) % 1003;
 	}
 }
