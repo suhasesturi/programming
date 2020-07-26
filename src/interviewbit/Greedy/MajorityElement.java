@@ -1,30 +1,23 @@
 package interviewbit.Greedy;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MajorityElement {
-    public int majorityElement(final List<Integer> A) {
-        if (A.isEmpty()) return -1;
+	public static void main(String[] args) {
+		System.out.println(new MajorityElement().majorityElement(Arrays.asList(2, 1, 2)));
+	}
 
-        int index = -1;
-        int count = 0;
-        for (int i = 0; i < A.size(); i++) {
-            if (count == 0) {
-                index = i;
-                count++;
-            } else if (A.get(i).equals(A.get(index))) {
-                count++;
-            } else {
-                count--;
-            }
-        }
-
-        count = 0;
-        for (Integer a : A) {
-            if (a.equals(A.get(index))) count++;
-        }
-
-        if (count >= Math.floor(A.size() / 2)) return index;
-        return -1;
-    }
+	public int majorityElement(final List<Integer> A) {
+		int count = 0, element = -1;
+		for (int i = 0; i < A.size(); i++) {
+			if (count == 0 || A.get(i) == element) {
+				count++;
+				element = A.get(i);
+			} else {
+				count--;
+			}
+		}
+		return element;
+	}
 }
