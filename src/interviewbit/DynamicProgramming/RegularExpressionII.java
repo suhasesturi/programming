@@ -1,24 +1,31 @@
 package interviewbit.DynamicProgramming;
 
 public class RegularExpressionII {
-    public int isMatch(final String A, final String B) {
-        int n = A.length();
-        int m = B.length();
-        boolean[][] dp = new boolean[n + 1][m + 1];
+	public int isMatch(final String text, final String pattern) {
+		int n = text.length(), m = pattern.length();
+		boolean[][] dp = new boolean[n + 1][m + 1];
+		dp[0][0] = true;
+		for (int j = 1; j <= m; j++) {
+			if (pattern.charAt(j - 1) == '*') {
+				dp[0][j] = dp[0][j - 2];
+			}
+		}
 
-        dp[n][m] = true;
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= m; j++) {
+				if (pattern.charAt(j - 1) == '*') {
+					dp[i][j] = dp[i][j - 2];
+					if (pattern.charAt(j - 2) == '.' || pattern.charAt(j - 2) == text.charAt(i - 1)) {
+						dp[i][j] |= dp[i - 1][j];
+					}
+				} else if (pattern.charAt(j - 1) == '.' || pattern.charAt(j - 1) == text.charAt(i - 1)) {
+					dp[i][j] = dp[i - 1][j - 1];
+				} else {
+					dp[i][j] = false;
+				}
+			}
+		}
 
-        for (int i = n; i >= 0; i--) {
-            for (int j = m - 1; j >= 0; j--) {
-                boolean flag = i < n && (A.charAt(i) == B.charAt(j) || B.charAt(j) == '.');
-                if (j + 1 < m && B.charAt(j + 1) == '*') {
-                    dp[i][j] = dp[i][j + 2] || (flag && dp[i + 1][j]);
-                } else {
-                    dp[i][j] = flag && dp[i + 1][j + 1];
-                }
-            }
-        }
-
-        return dp[0][0] ? 1 : 0;
-    }
+		return dp[n][m] ? 1 : 0;
+	}
 }
