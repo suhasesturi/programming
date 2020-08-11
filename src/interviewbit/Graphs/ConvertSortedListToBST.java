@@ -4,37 +4,27 @@ import interviewbit.LinkedList.ListNode;
 import interviewbit.Trees.TreeNode;
 
 public class ConvertSortedListToBST {
-    public TreeNode sortedListToBST(ListNode head) {
-        if (head == null) return null;
+	public TreeNode sortedListToBST(ListNode head) {
+		if (head == null) return null;
+		ListNode middle = getMiddle(head);
+		if (middle.next == null) {
+			return new TreeNode(middle.val);
+		}
 
-        ListNode middle = getMiddle(head);
-        ListNode nextToMiddle = middle.next;
+		TreeNode node = new TreeNode(middle.next.val);
+		node.right = sortedListToBST(middle.next.next);
+		middle.next = null;
+		node.left = sortedListToBST(head);
+		return node;
+	}
 
-        if (nextToMiddle == null) {
-            return new TreeNode(middle.val);
-        }
-        middle.next = null;
-
-        TreeNode root = new TreeNode(nextToMiddle.val);
-        root.left = sortedListToBST(head);
-        root.right = sortedListToBST(nextToMiddle.next);
-        return root;
-    }
-
-    private ListNode getMiddle(ListNode head) {
-        ListNode slow = head;
-        ListNode fast = head.next;
-        ListNode previous = head;
-
-        while (fast != null) {
-            fast = fast.next;
-            if (fast != null) {
-                fast = fast.next;
-                previous = slow;
-                slow = slow.next;
-            }
-        }
-
-        return previous;
-    }
+	private ListNode getMiddle(ListNode head) {
+		ListNode slow = head, fast = head, previous = head;
+		while (fast != null && fast.next != null) {
+			previous = slow;
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return previous;
+	}
 }
