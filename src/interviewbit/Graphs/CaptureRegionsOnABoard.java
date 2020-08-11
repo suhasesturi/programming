@@ -1,51 +1,55 @@
 package interviewbit.Graphs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class CaptureRegionsOnABoard {
-    public void solve(ArrayList<ArrayList<Character>> matrix) {
-        util(matrix);
+	public static void main(String[] args) {
+		ArrayList<ArrayList<Character>> matrix = new ArrayList<>(Arrays.asList(new ArrayList<>(Collections.singletonList('O'))));
+		new CaptureRegionsOnABoard().solve(matrix);
+		System.out.println();
+	}
 
-        int rows = matrix.size();
-        int columns = matrix.get(0).size();
+	public void solve(ArrayList<ArrayList<Character>> matrix) {
+		if (matrix.isEmpty() || matrix.get(0).isEmpty()) return;
+		int n = matrix.size(), m = matrix.get(0).size();
+		for (int i = 0; i < n; i++) {
+			flip(matrix, i, 0);
+			flip(matrix, i, m - 1);
+		}
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                if (matrix.get(i).get(j) == '*') {
-                    matrix.get(i).set(j, 'O');
-                } else {
-                    matrix.get(i).set(j, 'X');
-                }
-            }
-        }
-    }
+		for (int j = 0; j < m; j++) {
+			flip(matrix, 0, j);
+			flip(matrix, n - 1, j);
+		}
 
-    private void util(ArrayList<ArrayList<Character>> matrix) {
-        int rows = matrix.size();
-        int columns = matrix.get(0).size();
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if (matrix.get(i).get(j) == 'O') {
+					matrix.get(i).set(j, 'X');
+				}
+			}
+		}
 
-        for (int i = 0; i < rows; i++) {
-            mark(matrix, i, 0);
-            mark(matrix, i, columns - 1);
-        }
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if (matrix.get(i).get(j) == '*') {
+					matrix.get(i).set(j, 'O');
+				}
+			}
+		}
+	}
 
-        for (int j = 0; j < columns; j++) {
-            mark(matrix, 0, j);
-            mark(matrix, rows - 1, j);
-        }
-    }
+	private void flip(ArrayList<ArrayList<Character>> matrix, int x, int y) {
+		int n = matrix.size(), m = matrix.get(0).size();
+		if (x >= n || y >= m || x < 0 || y < 0) return;
+		if (matrix.get(x).get(y) == 'X' || matrix.get(x).get(y) == '*') return;
+		matrix.get(x).set(y, '*');
+		flip(matrix, x + 1, y);
+		flip(matrix, x - 1, y);
+		flip(matrix, x, y + 1);
+		flip(matrix, x, y - 1);
+	}
 
-    private void mark(ArrayList<ArrayList<Character>> matrix, int i, int j) {
-        int rows = matrix.size();
-        int columns = matrix.get(0).size();
-
-        if (i >= 0 && i < rows && j >= 0 && j < columns && matrix.get(i).get(j) == 'O') {
-            matrix.get(i).set(j, '*');
-
-            mark(matrix, i - 1, j);
-            mark(matrix, i + 1, j);
-            mark(matrix, i, j - 1);
-            mark(matrix, i, j + 1);
-        }
-    }
 }
