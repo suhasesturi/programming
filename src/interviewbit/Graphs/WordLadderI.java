@@ -1,55 +1,59 @@
 package interviewbit.Graphs;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class WordLadderI {
-    public int ladderLength(String start, String end, ArrayList<String> dictV) {
-        HashSet<String> visited = new HashSet<>(dictV);
+	public int solve(String start, String end, ArrayList<String> dict) {
+		if (start.equals(end)) return 1;
+		dict.add(start);
+		dict.add(end);
 
-        if (start.equals(end)) return 1;
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(new Node(start, 1));
+		int n = dict.size();
+		boolean[] visited = new boolean[n];
+		int[] distance = new int[n];
+		ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			graph.add(new ArrayList<>());
+			distance[i] = -1;
+		}
 
-        while (!queue.isEmpty()) {
-            Node current = queue.poll();
+		for (int i = 0; i < n; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (dist(dict.get(i), dict.get(j)) == 1) {
+					graph.get(i).add(j);
+					graph.get(j).add(i);
+				}
+			}
+		}
 
-            for (String word : dictV) {
-                if (!visited.contains(word)) {
-                    if (isValid(current.word, word)) {
-                        Node temp = new Node(word, current.distance + 1);
-                        queue.add(temp);
-                        visited.add(word);
+		distance[n - 2] = 0;
+		bfs(graph, n - 2, visited, distance);
+		return distance[n - 1] + 1;
+	}
 
-                        if (word.equals(end)) return temp.distance;
-                    }
-                }
-            }
-        }
+	private void bfs(ArrayList<ArrayList<Integer>> graph, int u, boolean[] visited, int[] distance) {
+		Queue<Integer> queue = new LinkedList<>();
+		queue.add(u);
+		while (!queue.isEmpty()) {
+			u = queue.poll();
+			visited[u] = true;
+			for (Integer v : graph.get(u)) {
+				if (!visited[v]) {
+					visited[v] = true;
+					queue.add(v);
+					distance[v] = distance[u] + 1;
+				}
+			}
+		}
+	}
 
-        return 0;
-    }
-
-    private boolean isValid(String first, String second) {
-        int count = 0;
-        for (int i = 0; i < first.length(); i++) {
-            if (first.charAt(i) != second.charAt(i)) {
-                count++;
-                if (count > 1) return false;
-            }
-        }
-        return count == 1;
-    }
-
-    static class Node {
-        int distance;
-        String word;
-
-        Node(String s, int d) {
-            distance = d;
-            word = s;
-        }
-    }
+	private int dist(String a, String b) {
+		int count = 0;
+		for (int i = 0; i < a.length(); i++) {
+			if (a.charAt(i) != b.charAt(i)) count++;
+		}
+		return count;
+	}
 }
