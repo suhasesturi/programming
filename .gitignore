@@ -3,3 +3,5 @@
 coding.iml
 out
 .vscode
+**/a.out
+*dsYM
