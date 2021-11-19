@@ -2,6 +2,7 @@ package interviewbit.DynamicProgramming;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class LongestIncreasingSubsequence {
 	public static void main(String[] args) {
@@ -11,6 +12,9 @@ public class LongestIncreasingSubsequence {
 	public int lis(final List<Integer> A) {
 		int[] lis = new int[A.size()];
 		Arrays.fill(lis, 1);
+
+		PriorityQueue<int[]> a = new PriorityQueue<>();
+		a.add(new int[]{1, 2});
 
 		int result = 0;
 		for (int i = 0; i < A.size(); i++) {
