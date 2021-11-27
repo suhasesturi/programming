@@ -1,6 +1,6 @@
+#include <cmath>
 #include <iostream>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
@@ -10,7 +10,7 @@ bool is_prime(int n) {
     if (n <= 1) {
         return false;
     }
-    for (int i = 0;  i < primes.size() && primes[i] * primes[i] <= n; i++) {
+    for (int i = 0; i < primes.size() && primes[i] * primes[i] <= n; i++) {
         if (n % primes[i] == 0) {
             return false;
         }
