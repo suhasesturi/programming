@@ -7,11 +7,13 @@
 
 using namespace std;
 
-int maxXor(int arr[], int n) {
+int maxXor(vector<int> &arr) {
+    int n = arr.size();
     stack<int> st;
     int result = 0;
     for (int i = 0; i < n; i++) {
         while (!st.empty() && st.top() < arr[i]) {
+            result = max(result, st.top() ^ arr[i]);
             st.pop();
         }
         if (!st.empty()) {
@@ -28,18 +30,11 @@ int main() {
     cin.tie(0);
     int n;
     cin >> n;
-    int arr[n];
+    vector<int> arr(n);
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
 
-    int result = maxXor(arr, n);
-    for (int i = 0, j = n - 1; i < j; i++, j--) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-    result = max(result, maxXor(arr, n));
-    cout << result << "\n";
+    cout << maxXor(arr) << "\n";
     return 0;
 }
