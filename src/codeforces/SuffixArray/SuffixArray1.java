@@ -30,6 +30,7 @@ public class SuffixArray1 {
 		while ((1 << k) < n) {
 			k++;
 		}
+		in.close();
 	}
 
 	static class Pair<K, V> {

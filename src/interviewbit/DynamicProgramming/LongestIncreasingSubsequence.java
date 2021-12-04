@@ -15,7 +15,7 @@ public class LongestIncreasingSubsequence {
 
 		PriorityQueue<int[]> a = new PriorityQueue<>();
 		a.add(new int[]{1, 2});
-
+		boolean s = a != a;
 		int result = 0;
 		for (int i = 0; i < A.size(); i++) {
 			for (int j = 0; j < i; j++) {

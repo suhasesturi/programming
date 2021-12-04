@@ -13,7 +13,7 @@ public class C1374 {
 			int n = Integer.parseInt(in.readLine());
 			String s = in.readLine();
 			Stack<Character> stack = new Stack<>();
-			for (int i = 0; i < s.length(); i++) {
+			for (int i = 0; i < n; i++) {
 				char ch = s.charAt(i);
 				if (ch == '(' || stack.isEmpty()) {
 					stack.push(ch);

@@ -9,7 +9,7 @@ public class CANDY3 {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(in.readLine());
         while (t-- > 0) {
-            String temp = in.readLine();
+            in.readLine();
             long sum = 0;
             int n = Integer.parseInt(in.readLine());
             for (int i = 0; i < n; i++) {

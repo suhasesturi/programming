@@ -38,14 +38,11 @@ public class E1_1399 {
 			PriorityQueue<ArrayList<Long>> pathSums = new PriorityQueue<>(Comparator.comparingLong(a -> a.get(1)));
 			dfs(parent, nodes, 1, new ArrayList<>(Arrays.asList(1)), visited, nodeToLeaves, 0L, pathSums);
 
-			int moves = 0;
 			while (!pathSums.isEmpty()) {
 				ArrayList<Long> path = pathSums.poll();
 				if (path.get(1) <= max) continue;
-				ArrayList<Edge> edges = new ArrayList<>();
 				int node = (int) ((long) path.get(0));
 				while (parent[node] != node) {
-//					edges.add(node);
 					node = parent[node];
 				}
 			}
