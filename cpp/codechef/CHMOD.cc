@@ -33,8 +33,6 @@ int main() {
                 cf[i][j]++;
                 current /= primes[j];
             }
-        }
-        for (int j = 0; j < primes.size(); j++) {
             cf[i][j] += cf[i - 1][j];
         }
     }
