@@ -1,11 +1,16 @@
+#include <math.h>
+
+#include <algorithm>
 #include <iostream>
+#include <map>
+#include <vector>
 
 using namespace std;
 
 int main() {
-    int n;
-    while (cin >> n && n != 42) {
-        cout << n << endl;
+    int t;
+    cin >> t;
+    while (t-- > 0) {
     }
     return 0;
 }
