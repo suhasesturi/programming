@@ -25,10 +25,6 @@ int main() {
                 }
             }
         }
-        // for (int i = 0; i < dp.size(); i++) {
-        //     cout << dp[i] << " ";
-        // }
-        // cout << "\n";
         cout << dp[input.length() - 1] << "\n";
     }
 

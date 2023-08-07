@@ -1,35 +1,42 @@
+#include <math.h>
+
 #include <algorithm>
+#include <deque>
 #include <iostream>
+#include <map>
 #include <stack>
-#include <string>
 #include <vector>
 
 using namespace std;
 
 int main() {
-    int n, temp;
-    cin >> n;
-    while (n != 0) {
-        stack<int> st;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-        int i, j;
-        for (i = 1, j = 1; i <= n && j <= n; j++) {
+    int n, current, i = 1;
+    while (true) {
+        cin >> n;
+        if (n == 0) break;
+        stack<int> st;
+        i = 1;
+        while (n-- > 0) {
+            cin >> current;
             while (!st.empty() && st.top() == i) {
                 st.pop();
                 i++;
             }
-            cin >> temp;
-            st.push(temp);
+            if (current == i) {
+                i++;
+            } else {
+                st.push(current);
+            }
         }
-
         while (!st.empty() && st.top() == i) {
             st.pop();
             i++;
         }
-
-        cout << (i == (n + 1) ? "yes" : "no") << "\n";
-        cin >> n;
+        cout << (st.empty() ? "yes" : "no") << "\n";
+        // cout << i << " " << st.size() << " \n" ;
     }
-
     return 0;
 }

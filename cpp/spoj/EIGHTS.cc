@@ -1,11 +1,8 @@
 #include <math.h>
 
 #include <algorithm>
-#include <deque>
 #include <iostream>
 #include <map>
-#include <set>
-#include <stack>
 #include <vector>
 
 using namespace std;
@@ -15,8 +12,11 @@ int main() {
     cin.tie(NULL);
 
     int t;
+    long long k;
     cin >> t;
     while (t-- > 0) {
+        cin >> k;
+        cout << (192 + 250 * (k - 1)) << "\n";
     }
     return 0;
 }
