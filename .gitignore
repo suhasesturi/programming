@@ -4,7 +4,7 @@ coding.iml
 out
 .vscode
 .vs
-**/a.out
-**/a.exe
+**/*.out
+**/*.exe
 *dsYM
 CppProperties.json
