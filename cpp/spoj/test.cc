@@ -6,6 +6,7 @@
 #include <map>
 #include <set>
 #include <stack>
+#include <string>
 #include <vector>
 
 using namespace std;
