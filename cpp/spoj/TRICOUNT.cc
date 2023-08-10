@@ -1,5 +1,4 @@
 #include <math.h>
-#include <stdint.h>
 
 #include <algorithm>
 #include <deque>
@@ -19,6 +18,9 @@ int main() {
     int t;
     cin >> t;
     while (t-- > 0) {
+        unsigned long long n;
+        cin >> n;
+        cout << (n * (n + 2) * (2 * n + 1)) / 8 << "\n";
     }
     return 0;
 }
