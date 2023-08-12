@@ -17,9 +17,11 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin >> t;
-    while (t-- > 0) {
+    while (true) {
+        int n;
+        cin >> n;
+        if (n == 0) break;
+        printf("%.2f\n", n * n / (2 * M_PI));
     }
     return 0;
 }

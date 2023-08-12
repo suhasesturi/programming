@@ -17,9 +17,12 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin >> t;
-    while (t-- > 0) {
+    int g, b, n, m;
+    while (true) {
+        cin >> g >> b;
+        if (g == -1 && b == -1) break;
+        n = max(g, b);
+        m = min(g, b);
+        cout << ceil((double) n / (m + 1)) << "\n";
     }
-    return 0;
 }
