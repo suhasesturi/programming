@@ -12,6 +12,11 @@
 
 using namespace std;
 
+struct item {
+    long long sum;
+    int num_elements;
+};
+
 class SegTree {
    public:
     SegTree(int n) {
@@ -20,39 +25,44 @@ class SegTree {
             size *= 2;
         }
         operations.resize(2 * size, 0LL);
-        values.resize(2 * size, 0LL);
+        values.resize(2 * size, {0LL, 0});
     }
 
-    long long calc(int l, int r) { return calc(l, r, 0, 0, size); }
+    item calc(int l, int r) { return calc(l, r, 0, 0, size); }
 
-    void add(int l, int r, int v) { add(l, r, v, 0, 0, size); }
+    void add(int l, int r, long long v) { add(l, r, v, 0, 0, size); }
 
    private:
-    void add(int l, int r, int v, int x, int lx, int rx) {
+    void add(int l, int r, long long v, int x, int lx, int rx) {
         if (l >= rx || r <= lx) return;
         if (l <= lx && r >= rx) {
             operations[x] += v;
-            values[x] += (rx - lx) * v;
+            values[x].sum += (rx - lx) * v;
             return;
         }
         int mid = (lx + rx) / 2;
         add(l, r, v, 2 * x + 1, lx, mid);
         add(l, r, v, 2 * x + 2, mid, rx);
-        values[x] =
-            (values[2 * x + 1] + values[2 * x + 2]) * (rx - lx) * operations[x];
+        values[x].sum = (values[2 * x + 1].sum + values[2 * x + 2].sum) +
+                        (rx - lx) * operations[x];
     }
 
-    long long calc(int l, int r, int x, int lx, int rx) {
-        if (l >= rx || r <= lx) return 0;
-        if (l <= lx && r >= rx) return values[x];
+    item calc(int l, int r, int x, int lx, int rx) {
+        if (l >= rx || r <= lx) return {0, 0};
+        if (l <= lx && r >= rx) {
+            return {values[x].sum, rx - lx};
+        }
         int mid = (lx + rx) / 2;
-        long long sum1 = calc(l, r, 2 * x + 1, lx, mid);
-        long long sum2 = calc(l, r, 2 * x + 2, mid, rx);
-        return (sum1 + sum2) + (rx - lx) * operations[x];
+        item val1 = calc(l, r, 2 * x + 1, lx, mid);
+        item val2 = calc(l, r, 2 * x + 2, mid, rx);
+        return {val1.sum + val2.sum +
+                    (val1.num_elements + val2.num_elements) * operations[x],
+                val1.num_elements + val2.num_elements};
     }
 
     int size;
-    vector<long long> operations, values;
+    vector<long long> operations;
+    vector<item> values;
 };
 
 int main() {
@@ -66,14 +76,15 @@ int main() {
         cin >> n >> c;
         SegTree st(n);
         while (c-- > 0) {
-            int op, l, r, v;
+            int op, l, r;
+            long long v;
             cin >> op >> l >> r;
             l--;
             if (op == 0) {
                 cin >> v;
                 st.add(l, r, v);
             } else {
-                cout << st.calc(l, r) << "\n";
+                cout << st.calc(l, r).sum << "\n";
             }
         }
     }
