@@ -1,32 +1,40 @@
+#define _USE_MATH_DEFINES
+
 #include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <deque>
 #include <iostream>
+#include <map>
+#include <set>
 #include <stack>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
 int main() {
-    for (int i = 1; true; ++i) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    for (int i = 1; true; i++) {
         string s;
         cin >> s;
-        if (s[0] == '-') {
-            break;
-        }
-        int count = 0;
-        int current = 0;
-        for (char ch : s) {
-            if (ch == '{') {
-                current++;
-            } else if (ch == '}' && current == 0) {
+        if (s[0] == '-') break;
+        int result = 0, count = 0;
+        for (int j = 0; j < s.length(); j++) {
+            if (s[j] == '{') {
                 count++;
-                current = 1;
-            } else if (ch == '}') {
-                current--;
+            } else {
+                if (count == 0) {
+                    count++;
+                    result++;
+                } else {
+                    count--;
+                }
             }
         }
-        cout << i << ". " << count + current / 2 << "\n";
+        cout << i << ". " << result + count / 2 << "\n";
     }
 
     return 0;

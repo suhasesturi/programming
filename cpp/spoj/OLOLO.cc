@@ -6,7 +6,6 @@
 #include <deque>
 #include <iostream>
 #include <map>
-#include <queue>
 #include <set>
 #include <stack>
 #include <string>
@@ -18,9 +17,17 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
+    int t, temp;
     cin >> t;
+    set<int> unique;
     while (t-- > 0) {
+        cin >> temp;
+        if (unique.count(temp) == 0) {
+            unique.insert(temp);
+        } else {
+            unique.erase(temp);
+        }
     }
+    cout << *unique.begin() << "\n";
     return 0;
 }
