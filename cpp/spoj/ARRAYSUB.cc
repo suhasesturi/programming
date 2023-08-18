@@ -21,21 +21,24 @@ int main() {
     int n, k, temp;
     cin >> n;
     vector<int> arr(n);
-    multiset<int> pq;
+    priority_queue<pair<int, int>> pq;
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
 
     cin >> k;
     for (int i = 0; i < k; i++) {
-        pq.insert(arr[i]);
+        pq.push({arr[i], i});
     }
+    cout << pq.top().first << " ";
+
     for (int i = k, j = 0; i < n; i++, j++) {
-        cout << *pq.rbegin() << " ";
-        pq.erase(arr[j]);
-        pq.insert(arr[i]);
+        pq.push({arr[i], i});
+        while (pq.top().second <= j) {
+            pq.pop();
+        }
+        cout << pq.top().first << " ";
     }
-    cout << *pq.rbegin() << " ";
 
     return 0;
 }
