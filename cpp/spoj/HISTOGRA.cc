@@ -1,39 +1,48 @@
+#define _USE_MATH_DEFINES
+
 #include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <deque>
 #include <iostream>
+#include <map>
+#include <queue>
+#include <set>
 #include <stack>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
-    while (n != 0) {
-        int heights[n + 1];
-        for (int i = 0; i < n; ++i) {
-            cin >> heights[i];
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n, top;
+    while (true) {
+        cin >> n;
+        if (n == 0) break;
+
+        vector<int> arr(n);
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
         }
-        heights[n] = -1;
+        arr.push_back(0);
 
         stack<int> st;
         long long result = 0;
-        int i = 0;
-        while (i <= n) {
-            if (st.empty() || heights[st.top()] <= heights[i]) {
-                st.push(i);
-                i++;
-            } else {
-                int top = st.top();
+        for (int i = 0; i <= n; i++) {
+            while (!st.empty() && arr[st.top()] >= arr[i]) {
+                top = st.top();
                 st.pop();
-                result = max(result, (long long)heights[top] *
-                                         (st.empty() ? i : i - st.top() - 1));
+
+                result =
+                    max(result, (long long)(st.empty() ? i : i - st.top() - 1) *
+                                    arr[top]);
             }
+            st.push(i);
         }
         cout << result << "\n";
-
-        cin >> n;
     }
 
     return 0;

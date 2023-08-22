@@ -4,7 +4,6 @@
 #include <cmath>
 #include <cstdint>
 #include <deque>
-#include <functional>
 #include <iostream>
 #include <map>
 #include <queue>
@@ -22,6 +21,19 @@ int main() {
     int t;
     cin >> t;
     while (t-- > 0) {
+        int n, k;
+        cin >> n >> k;
+        vector<int> arr(n);
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+        sort(arr.begin(), arr.end());
+
+        int result = INT32_MAX;
+        for (int i = 0; i < n - k + 1; i++) {
+            result = min(result, arr[i + k - 1] - arr[i]);
+        }
+        cout << result << "\n";
     }
     return 0;
 }
