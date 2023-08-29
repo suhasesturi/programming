@@ -39,12 +39,12 @@ int main() {
         int column = 1, row = 1, i, j;
         long long result = 0;
         for (i = 0, j = 0; i < m && j < n;) {
-            if (column * horizontal[i] < row * vertical[j]) {
-                result += column * horizontal[i++];
-                row++;
-            } else {
+            if (horizontal[i] < vertical[j]) {
                 result += row * vertical[j++];
                 column++;
+            } else {
+                result += column * horizontal[i++];
+                row++;
             }
         }
         while (i < m) {
