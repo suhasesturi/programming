@@ -80,10 +80,6 @@ int main() {
         c = c_new;
         k++;
     }
-    // for (int i = 0; i < n; i++) {
-    //     cout << p[i] << " " << s.substr(p[i], n - p[i] - 1) << "\n";
-    // }
-    // cout << "\n";
 
     vector<int> lcp(n);
     k = 0;
@@ -96,16 +92,15 @@ int main() {
         lcp[pi] = k;
         k = max(k - 1, 0);
     }
-    // for (int i = 0; i < n; i++) {
-    //     cout << lcp[i] << " ";
-    // }
-    // cout << "\n";
 
     vector<long long> starting_with(26, 0);
     for (int i = 1; i < n; i++) {
-        count += (n - p[i] - 1) - lcp[i];
+        starting_with[s[p[i]] - 'a'] += (n - p[i] - 1) - lcp[i];
     }
-    cout << count << "\n";
+    for (int i = 0; i < 26; i++) {
+        cout << starting_with[i] << " ";
+    }
+    cout << "\n";
 
     return 0;
 }
