@@ -9,3 +9,4 @@ out
 **/*.exe
 *dsYM
 CppProperties.json
+target
